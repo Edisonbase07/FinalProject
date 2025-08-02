@@ -15,10 +15,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",                        // ✅ Add this line
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     },
     "lib": [
       "dom",
@@ -36,5 +35,12 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "types/global.d.ts",       // ✅ Add this line
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
   ]
 }
