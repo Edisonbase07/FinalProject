@@ -6,36 +6,11 @@ export interface IUser extends mongoose.Document {
   email: string;
   password: string;
   balance: number;
-  transactions: {
-    type: 'add' | 'withdraw' | 'send' | 'receive';
-    amount: number;
-    description?: string;
-    timestamp: Date;
-  }[];
+  transactions: mongoose.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
-
-const transactionSchema = new mongoose.Schema(
-  {
-    type: {
-      type: String,
-      enum: ['add', 'withdraw', 'send', 'receive'],
-      required: true,
-    },
-    amount: {
-      type: Number,
-      required: true,
-    },
-    description: String,
-    timestamp: {
-      type: Date,
-      default: Date.now,
-    },
-  },
-  { _id: false }
-);
 
 const userSchema = new mongoose.Schema<IUser>(
   {
@@ -60,7 +35,12 @@ const userSchema = new mongoose.Schema<IUser>(
       default: 0,
       min: [0, 'Balance cannot be negative'],
     },
-    transactions: [transactionSchema],
+    transactions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Transaction',
+      },
+    ],
   },
   { timestamps: true }
 );

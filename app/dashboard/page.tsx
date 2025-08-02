@@ -199,6 +199,72 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </section>
+
+      {/* Modals */}
+      {showAddModal && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
+          <div className="bg-zinc-950 border border-red-700 text-white p-6 rounded-lg w-full max-w-sm">
+            <h2 className="text-lg font-bold mb-2">Add Money</h2>
+            <input
+              type="number"
+              className="w-full mb-2 p-2 bg-zinc-800 border border-red-600 text-white"
+              value={addAmount}
+              onChange={(e) => setAddAmount(e.target.value)}
+            />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <div className="flex justify-end gap-2">
+              <Button variant="ghost" onClick={() => setShowAddModal(false)}>Cancel</Button>
+              <Button onClick={handleAddMoney}>Add</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showWithdrawModal && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
+          <div className="bg-zinc-950 border border-red-700 text-white p-6 rounded-lg w-full max-w-sm">
+            <h2 className="text-lg font-bold mb-2">Withdraw Money</h2>
+            <input
+              type="number"
+              className="w-full mb-2 p-2 bg-zinc-800 border border-red-600 text-white"
+              value={withdrawAmount}
+              onChange={(e) => setWithdrawAmount(e.target.value)}
+            />
+            {withdrawError && <p className="text-red-500 text-sm">{withdrawError}</p>}
+            <div className="flex justify-end gap-2">
+              <Button variant="ghost" onClick={() => setShowWithdrawModal(false)}>Cancel</Button>
+              <Button variant="destructive" onClick={handleWithdrawMoney}>Withdraw</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showSendModal && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
+          <div className="bg-zinc-950 border border-red-700 text-white p-6 rounded-lg w-full max-w-sm">
+            <h2 className="text-lg font-bold mb-2">Send Money</h2>
+            <input
+              type="email"
+              placeholder="Recipient Email"
+              className="w-full mb-2 p-2 bg-zinc-800 border border-red-600 text-white"
+              value={recipientEmail}
+              onChange={(e) => setRecipientEmail(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Amount"
+              className="w-full mb-2 p-2 bg-zinc-800 border border-red-600 text-white"
+              value={sendAmount}
+              onChange={(e) => setSendAmount(e.target.value)}
+            />
+            {sendError && <p className="text-red-500 text-sm">{sendError}</p>}
+            <div className="flex justify-end gap-2">
+              <Button variant="ghost" onClick={() => setShowSendModal(false)}>Cancel</Button>
+              <Button onClick={handleSendMoney}>Send</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
